@@ -1,4 +1,4 @@
---local QBCore = exports['qb-core']:GetCoreObject()
+local QBCore = exports['qb-core']:GetCoreObject()
 
 math.randomseed(GetGameTimer()) -- make randomness more random lol
 local playerId = PlayerPedId()
@@ -14,22 +14,10 @@ local function SearchProgressBar()
 
 end
 
-local function HuntStartMessage()
-  lib.notify({
-    title = 'Treasure Hunt Activated!',
-    description = "A Waypoint has been set!",
-    type = 'success',
-    duration = 3000
-  })
+local function HuntMessage(text, textype, length)
+  QBCore.Functions.Notify(text, textype, length)
 end
 
-local function HuntErrorMessage()
-
-  end
-
-local function TreasureFoundMessage()
-
-end
 
 -- displays a notification to the player
 local function ShowNotification(text)
@@ -111,9 +99,9 @@ end
 RegisterNetEvent('cfm-treasure:client:randomLocation', function()
   if isHuntActive == false then
     RandomLocation()
-    HuntStartMessage()
+    HuntMessage("Treasure Hunt Started", "success", 5000)
   else
-    HuntErrorMessage()
+    HuntMessage("A Treasure Hunt is Active!", "error", 5000)
     print('A Treasure Hunt is Active!')
   end
 end)
