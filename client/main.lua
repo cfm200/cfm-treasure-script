@@ -5,13 +5,17 @@ local playerId = PlayerPedId()
 local isHuntActive = false -- flag for checking if hunt is active
 local location = Config.Locations[math.random(1, #Config.Locations)] -- sets the variable location to a random index of the Config.Locations table
 
-local function SearchProgressBar()
 
-  --TaskStartScenarioInPlace(playerId, "CODE_HUMAN_MEDIC_KNEEL", 0, false)
-  --TaskStartScenarioInPlace(playerId, "WORLD_HUMAN_GARDENER_PLANT", 0, false)
-
-  --ClearPedTasksImmediately(playerId)
-
+local function TreasureProgressBar()
+  lib.progressBar({
+    duration = 10000,
+    label = "Searching for Treasure",
+    useWhileDead = false,
+    canCancel = true,
+    anim = {
+      scenario = 'WORLD_HUMAN_GARDENER_PLANT'
+    }
+  })
 end
 
 local function HuntMessage(text, textype, length)
@@ -69,8 +73,20 @@ local function CheckDistance(loc)
           
           if IsControlJustPressed(0, 38) then -- checks if E (38) is pressed
             if not IsPedInAnyVehicle(playerId, true) then -- checks if player is not in a vehicle
-              SearchProgressBar()
-              TreasureFoundMessage()
+              if lib.progressBar({
+                duration = 10000,
+                label = "Searching for Treasure",
+                useWhileDead = false,
+                canCancel = true,
+                anim = {
+                  scenario = 'WORLD_HUMAN_GARDENER_PLANT'
+                }
+              }) then
+                HuntMessage("You found treasure!", "success", 5000)
+              else
+                HuntMessage("You Have Stopped Searching!", "error", 5000)
+              end
+    
               isHuntActive = false -- sets flag back to false (player is no longer treasure hunting)
               break -- escapes while loop
             else
