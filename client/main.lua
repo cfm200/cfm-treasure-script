@@ -7,22 +7,10 @@ local location = Config.Locations[math.random(1, #Config.Locations)] -- sets the
 
 local function SearchProgressBar()
 
-  TaskStartScenarioInPlace(playerId, "CODE_HUMAN_MEDIC_KNEEL", 0, false)
-  TaskStartScenarioInPlace(playerId, "WORLD_HUMAN_GARDENER_PLANT", 0, false)
+  --TaskStartScenarioInPlace(playerId, "CODE_HUMAN_MEDIC_KNEEL", 0, false)
+  --TaskStartScenarioInPlace(playerId, "WORLD_HUMAN_GARDENER_PLANT", 0, false)
 
-  lib.progressBar({
-    duration = 5000,
-    label = 'Searching for Treasure',
-    useWhileDead = false,
-    canCancel = true,
-    disable = {
-      car = true,
-      move = true,
-      combat = true
-    }
-  })
-
-  ClearPedTasksImmediately(playerId)
+  --ClearPedTasksImmediately(playerId)
 
 end
 
@@ -36,21 +24,11 @@ local function HuntStartMessage()
 end
 
 local function HuntErrorMessage()
-    lib.notify({
-      title = 'A Treasure Hunt is Active!',
-      description = "Find it!",
-      type = 'error',
-      duration = 3000
-    })
+
   end
 
 local function TreasureFoundMessage()
-  lib.notify({
-    title = 'Treasure Found!',
-    description = "I wonder what you'll find next?",
-    type = 'success',
-    duration = 3000
-  })
+
 end
 
 -- displays a notification to the player
