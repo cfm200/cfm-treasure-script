@@ -130,7 +130,7 @@ local function RandomLocation()
 end
 
 
-RegisterNetEvent('cypher-treasure:client:randomLocation', function()
+RegisterNetEvent('cfm-treasure:client:randomLocation', function()
   if isHuntActive == false then
     RandomLocation()
     HuntStartMessage()
