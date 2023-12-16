@@ -1,5 +1,25 @@
 Config = {}
 
+Config.Invincible = true --Do you want the peds to be invincible?
+Config.Frozen = true --Do you want the peds to be unable to move? It's probably a yes, so leave true in there.
+Config.Stoic = true --Do you want the peds to react to what is happening in their surroundings?
+Config.Fade = true-- Do you want the peds to fade into/out of existence? It looks better than just *POP* its there.
+Config.Distance = 15.0 --The distance you want peds to spawn at
+
+Config.Peds = {
+	{ --- legion treasure ped
+		model = "a_m_m_acult_01",
+		coords = vector3(129.88, -1035.33, 28.43),
+    heading = 336.56,
+		gender = "male",
+		freeze = true,
+		invincible = true,
+		blockevents = true,
+    isRendered = false,
+	},
+}
+
+
 Config.Locations = {
   {
     --- Behind/Near PD ---
@@ -21,6 +41,7 @@ Config.Locations = {
     coords = vector3(720.31, 1203.09, 325.99)
   }
 }
+
 
 Config.Loot = {
     [1] = 'tosti',
