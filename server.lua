@@ -1,10 +1,11 @@
 local QBCore = exports['qb-core']:GetCoreObject()
 
-RegisterNetEvent("giveItem")
-
-AddEventHandler("giveItem", function()
-  local Player = QBCore.Functions.GetPlayer(source)
-
+RegisterNetEvent("giveItem", function()
+  local src= source
+  local Player = QBCore.Functions.GetPlayer(src)
   local randomItem = Config.Loot[math.random(#Config.Loot)]
+
   Player.Functions.AddItem(randomItem, math.random(1, 10))
+
+  TriggerClientEvent('inventory:client:ItemBox', src, QBCore.Shared.Items[randomItem], "add")
 end)
