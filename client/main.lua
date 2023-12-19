@@ -5,40 +5,66 @@ local playerId = PlayerPedId()
 local isHuntActive = false -- flag for checking if hunt is active
 local location = Config.Locations[math.random(1, #Config.Locations)] -- sets the variable location to a random index of the Config.Locations table
 
-local function SpawnPed(model, coords, heading)
-  RequestModel(GetHashKey(model))
-  while not HasModelLoaded(GetHashKey(model)) do
-    Wait(1)
-  end
-
-  local ped = CreatePed(0, GetHashKey(value.model), coords, heading, false, true)
-
-  if Config.Invincible then
-    SetEntityInvincible(ped)
-  end
-end
-
--- fix this
-  CreateThread(function()
+CreateThread(function()
     while true do
       Wait(500)
-
       for k = 1, #Config.Peds, 1 do
         value = Config.Peds[k]
-
         local playerCoords = GetEntityCoords(playerId)
         local playerDistance = #(playerCoords - value.coords)
 
         if playerDistance < Config.Distance and not value.isRendered then
-          SpawnPed(value.model, value.coords, value.heading)
+          local ped = SpawnPed(value.model, value.coords, value.heading)
+          value.ped = ped
           value.isRendered = true
+        end
+
+        if playerDistance >= Config.Distance and value.isRendered then
+          if Config.Fade then
+            for i = 255, 0, -51 do
+              Wait(50)
+              SetEntityAlpha(value.ped, i, false)
+            end
+          end
+          DeletePed(ped)
+          value.ped = nil
+          value.isRendered = false
         end
       end
     end
   end)
 
---fix above
+function SpawnPed(model, coords, heading)
+  RequestModel(GetHashKey(model))
+  while not HasModelLoaded(GetHashKey(model)) do
+    Wait(1)
+  end
 
+   ped = CreatePed(0, GetHashKey(value.model), coords, heading, false, true)
+
+   SetEntityAlpha(ped, 0, false)
+
+  if Config.Invincible then
+    SetEntityInvincible(ped)
+  end
+
+  if Config.Frozen then
+    FreezeEntityPosition(ped, true)
+  end
+
+  if Config.Stoic then
+    SetBlockingOfNonTemporaryEvents(ped, true)
+  end
+
+  if Config.Fade then
+		for i = 0, 255, 51 do
+			Wait(50)
+			SetEntityAlpha(ped, i, false)
+		end
+	end
+
+  return ped
+end
 
 local function HuntMessage(text, textype, length)
   QBCore.Functions.Notify(text, textype, length)
