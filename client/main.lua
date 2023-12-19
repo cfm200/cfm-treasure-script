@@ -130,6 +130,8 @@ local function CheckDistance(loc)
                   scenario = 'WORLD_HUMAN_GARDENER_PLANT'
                 }
               }) then
+                -- move this because player can still get loot if they cancel
+                TriggerServerEvent("giveItem", playerId)
                 HuntMessage("You found treasure!", "success", 5000)
               else
                 HuntMessage("You Have Stopped Searching!", "error", 5000)

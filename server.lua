@@ -1,9 +1,10 @@
---local QBCore = exports['qb-core']:GetCoreObject()
+local QBCore = exports['qb-core']:GetCoreObject()
 
+RegisterNetEvent("giveItem")
 
---RegisterNetEvent('giveItem', function()
-  --local Player = QBCore.Functions.GetPlayer(source)
+AddEventHandler("giveItem", function()
+  local Player = QBCore.Functions.GetPlayer(source)
 
-  --local randomItem = Config.Loot[math.random(#Config.Loot)]
-  --Player.Functions.AddItem(randomItem, math.random(1, 10))
---end)
+  local randomItem = Config.Loot[math.random(#Config.Loot)]
+  Player.Functions.AddItem(randomItem, math.random(1, 10))
+end)
