@@ -161,7 +161,7 @@ local function RandomLocation()
   end
 end
 
-
+--needs to work with treasure map and not ped (ped will give treasure map)
 RegisterNetEvent('cfm-treasure:client:randomLocation', function()
   if isHuntActive == false then
     RandomLocation()
